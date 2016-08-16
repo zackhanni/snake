@@ -1,3 +1,5 @@
+confirm ("Ready to Play?");
+
 var snake;
 var scl = 20;
 var food;
@@ -20,6 +22,7 @@ function draw() {
   background(100);
   snake.update();
   snake.show();
+  snake.death();
 
   if (snake.eat(food)) {
   	foodLocation();
@@ -57,7 +60,6 @@ function keyTyped() {
 	else if (key === "d") {
 		snake.dir(1,0);
 	}
-
 }
 
 function Snake() {
@@ -70,8 +72,8 @@ function Snake() {
 
 //did snake eat food?
 	this.eat = function(pos) {
-		var direction = dist(this.x, this.y, pos.x, pos.y);
-		if (direction < 2) {
+		var d = dist(this.x, this.y, pos.x, pos.y);
+		if (d < 2) {
 			this.total++;
 			return true;
 		}
@@ -84,6 +86,18 @@ function Snake() {
 		this.xspeed = x;
 		this.yspeed = y;
 	}
+		this.death = function() {
+			for (var i=0; i<this.tail.length; i++) {
+				var pos = this.tail[i];
+				var d = dist(this.x, this.y, pos.x, pos.y);
+				if (d<1) {
+					confirm("You Died!")
+					console.log("Starting Over")
+					this.total = 0;
+					this.tail = [];
+				}
+			}
+		}
 
 	this.update = function() {
 		if (this.total === this.tail.length) {
