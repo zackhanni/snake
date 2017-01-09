@@ -91,8 +91,7 @@ function Snake() {
 				var pos = this.tail[i];
 				var d = dist(this.x, this.y, pos.x, pos.y);
 				if (d<1) {
-					confirm("You Died!")
-					console.log("Starting Over")
+					confirm("You Died! Play Again?")
 					this.total = 0;
 					this.tail = [];
 				}
